@@ -1,12 +1,7 @@
-import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, View, StyleSheet, Text, Button } from 'react-native';
 import moment from 'moment';
 
-
-const DATA = {
-  timer: 1234567,
-  laps: [ 1212121, 2332323, 3434343 ],
-}
 const Timer = ({ interval }) => {
   const duration = moment.duration(interval)
   const centiSeconds = Math.floor(duration.milliseconds() / 10)
@@ -16,9 +11,34 @@ const Timer = ({ interval }) => {
     </Text>)
 }
 export default function LinksScreen() {
+  const [ timer, setTimer ] = useState(0)
+  const [ start, setStart ] = useState('Start')
+  var aj
+  const onPressStart = () => {
+    const now = new Date().getTime()
+    
+    if (start === 'Start') {
+      aj = setInterval(() => {setTimer(new Date().getTime() - now) }, 100)
+    }
+    setStart(start === 'Start' ? 'Stop' : 'Start')
+  }
+  const onPressStop = () => {
+    clearInterval(aj)
+    setTimer(0)
+    setStart(start === 'Start' ? 'Stop' : 'Start')
+  }
+
+
   return (
     <ScrollView style={styles.container}>
-      <Timer interval={ DATA.timer } />
+      <View style={styles.mainView}>
+        <Timer interval={ timer } />
+        <Button
+          onPress={start === 'Start' ? onPressStart : onPressStop}
+          title={`${start} Timer`}
+          color="#841584"
+        />
+      </View>
     </ScrollView>
   );
 }
@@ -31,7 +51,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
+  },
+  mainView: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   timer: {
     color: '#000000',
