@@ -72,13 +72,13 @@ export default function HomeScreen() {
 
       <View style={styles.tabBarInfoContainer}>
         <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
+          And the bottom line isssssssssssssssss
         </Text>
 
         <View
           style={[styles.codeHighlightContainer, styles.navigationFilename]}>
           <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
+            AJ said soooooooooooo
           </MonoText>
         </View>
       </View>
